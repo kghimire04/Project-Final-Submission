@@ -3,39 +3,179 @@
   <title>Ethical Threads | Brand Search</title>
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <style>
-    body { font-family: 'Times New Roman', Times, serif; margin: 0; padding: 0; background-color: white; text-align: center; }
-    nav { background-color: #111; padding: 0; }
-    nav ul { list-style-type: none; margin: 0; padding: 0; display: flex; justify-content: center; }
-    nav li { padding: 18px 35px; cursor: pointer; }
-    nav li:hover { background-color: #555; }
-    nav a { color: white; text-decoration: none; font-size: 18px; display: block; }
-    .container { width: 85%; margin: 40px auto; border: 3px solid black; padding: 30px; background-color: white; }
-    input { padding: 10px; font-size: 16px; margin: 10px; font-family: 'Times New Roman', Times, serif; }
+    body {
+      font-family: 'Times New Roman', Times, serif;
+      margin: 0;
+      padding: 0;
+      background-color: white;
+      text-align: center;
+    }
+
+    nav {
+      background-color: #111;
+      padding: 0;
+    }
+
+    nav ul {
+      list-style-type: none;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      justify-content: center;
+    }
+
+    nav li {
+      padding: 18px 35px;
+      cursor: pointer;
+    }
+
+    nav li:hover {
+      background-color: #555;
+    }
+
+    nav a {
+      color: white;
+      text-decoration: none;
+      font-size: 18px;
+      display: block;
+    }
+
+    .container {
+      width: 85%;
+      margin: 40px auto;
+      border: 3px solid black;
+      padding: 30px;
+      background-color: white;
+    }
+
+    input {
+      padding: 10px;
+      font-size: 16px;
+      margin: 10px;
+      font-family: 'Times New Roman', Times, serif;
+    }
+
     .button-85 {
-      display: inline-block; padding: 0.6em 2em; border: none; outline: none;
-      color: white; background: #111; cursor: pointer; position: relative;
-      z-index: 0; border-radius: 10px; user-select: none; touch-action: manipulation;
-      margin: 15px; font-size: 18px; text-decoration: none; isolation: isolate;
+      display: inline-block;
+      padding: 0.6em 2em;
+      border: none;
+      outline: none;
+      color: white;
+      background: #111;
+      cursor: pointer;
+      position: relative;
+      z-index: 0;
+      border-radius: 10px;
+      user-select: none;
+      touch-action: manipulation;
+      margin: 15px;
+      font-size: 18px;
+      text-decoration: none;
+      isolation: isolate;
     }
+
     .button-85:before {
-      content: ""; position: absolute; top: -2px; left: -2px; z-index: -2;
-      background: linear-gradient(45deg, #ff0000, #ff7300, #fffb00, #48ff00, #00ffd5, #002bff, #7a00ff, #ff00c8, #ff0000);
-      background-size: 400%; filter: blur(5px);
-      width: calc(100% + 4px); height: calc(100% + 4px);
-      animation: glowing 20s linear infinite; border-radius: 10px;
+      content: "";
+      position: absolute;
+      top: -2px;
+      left: -2px;
+      z-index: -2;
+      background: linear-gradient(
+        45deg,
+        #ff0000, #ff7300, #fffb00, #48ff00,
+        #00ffd5, #002bff, #7a00ff, #ff00c8, #ff0000
+      );
+      background-size: 400%;
+      filter: blur(5px);
+      width: calc(100% + 4px);
+      height: calc(100% + 4px);
+      animation: glowing 20s linear infinite;
+      border-radius: 10px;
     }
-    @keyframes glowing { 0% { background-position: 0 0; } 50% { background-position: 400% 0; } 100% { background-position: 0 0; } }
-    .button-85:after { z-index: -1; content: ""; position: absolute; width: 100%; height: 100%; background: #222; left: 0; top: 0; border-radius: 10px; }
-    .button-85:disabled { opacity: 0.6; cursor: not-allowed; }
-    .resultBox { width: 85%; margin: 30px auto; border: 3px solid black; padding: 20px; background-color: #f5f5f5; text-align: left; }
-    .resultBox h2 { text-align: center; }
-    .resultCard { border: 2px solid black; padding: 15px; margin: 15px; background-color: white; }
-    .resultCard a { color: blue; font-weight: bold; }
-    #statusMessage { font-weight: bold; color: #111; }
-    .smallNote { font-size: 16px; color: #444; width: 75%; margin: 15px auto; line-height: 1.5; }
-    table { width: 90%; margin: 30px auto; border-collapse: collapse; }
-    th, td { border: 2px solid black; padding: 12px; text-align: center; }
-    th { background-color: #222; color: white; }
+
+    @keyframes glowing {
+      0%   { background-position: 0 0; }
+      50%  { background-position: 400% 0; }
+      100% { background-position: 0 0; }
+    }
+
+    .button-85:after {
+      z-index: -1;
+      content: "";
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      background: #222;
+      left: 0;
+      top: 0;
+      border-radius: 10px;
+    }
+
+    .button-85:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+      pointer-events: none;
+    }
+
+    .resultBox {
+      width: 85%;
+      margin: 30px auto;
+      border: 3px solid black;
+      padding: 20px;
+      background-color: #f5f5f5;
+      text-align: left;
+    }
+
+    .resultBox h2 {
+      text-align: center;
+    }
+
+    .resultCard {
+      border: 2px solid black;
+      padding: 15px;
+      margin: 15px;
+      background-color: white;
+    }
+
+    .resultCard a {
+      color: blue;
+      font-weight: bold;
+    }
+
+    #statusMessage {
+      font-weight: bold;
+      color: #111;
+    }
+
+    #statusMessage.error {
+      color: #c00;
+    }
+
+    .smallNote {
+      font-size: 16px;
+      color: #444;
+      width: 75%;
+      margin: 15px auto;
+      line-height: 1.5;
+    }
+
+    table {
+      width: 90%;
+      margin: 30px auto;
+      border-collapse: collapse;
+    }
+
+    th,
+    td {
+      border: 2px solid black;
+      padding: 12px;
+      text-align: center;
+    }
+
+    th {
+      background-color: #222;
+      color: white;
+    }
   </style>
 </head>
 <body>
@@ -86,50 +226,82 @@
   <script>
     var brandChart;
 
+    function setStatus(msg, isError) {
+      var el = document.getElementById('statusMessage');
+      el.textContent = msg;
+      el.className = isError ? 'error' : '';
+    }
+
     function searchBrand() {
-      var brand = document.getElementById("brandInput").value.trim();
-      if (!brand) { alert("Please enter a brand name."); return; }
+      var brand = document.getElementById('brandInput').value.trim();
+      if (!brand) { alert('Please enter a brand name.'); return; }
 
-      var btn = document.getElementById("searchButton");
+      var btn = document.getElementById('searchButton');
       btn.disabled = true;
-      document.getElementById("statusMessage").textContent = "Searching for " + brand + "...";
+      setStatus('Searching for ' + brand + '...');
 
-      // Fetch 1: external API call via backend (Zenserp)
-      fetch("/api/brand-search?brand=" + encodeURIComponent(brand))
-        .then(function(r) { return r.json(); })
+      fetch('/api/brand-search?brand=' + encodeURIComponent(brand))
+        .then(function(r) {
+          if (!r.ok) {
+            return r.json().then(function(body) {
+              throw new Error(body.error || 'Server error ' + r.status);
+            });
+          }
+          return r.json();
+        })
         .then(function(data) {
-          btn.disabled = false;
-          document.getElementById("statusMessage").textContent = "Showing results for " + data.brand + ".";
+          setStatus('Showing results for ' + data.brand + '.');
           displayResults(data);
           drawChart(data);
           logSearch(brand);
+        })
+        .catch(function(err) {
+          setStatus('Search failed: ' + err.message, true);
+          console.error('searchBrand error:', err);
+        })
+        .finally(function() {
+          btn.disabled = false;
         });
     }
 
     function displayResults(data) {
-      var box = document.getElementById("searchResults");
-      box.innerHTML = "";
-      if (!data.results || data.results.length === 0) { box.innerHTML = "<p>No results found.</p>"; return; }
+      var box = document.getElementById('searchResults');
+      box.innerHTML = '';
+      if (!data.results || data.results.length === 0) {
+        box.innerHTML = '<p>No results found.</p>';
+        return;
+      }
       data.results.forEach(function(r) {
-        var card = document.createElement("div");
-        card.className = "resultCard";
-        card.innerHTML = "<h3>" + r.title + "</h3><p>" + r.description + "</p><a href='" + r.url + "' target='_blank'>View Source</a>";
+        var card = document.createElement('div');
+        card.className = 'resultCard';
+        var safeTitle = document.createElement('h3');
+        safeTitle.textContent = r.title;
+        var safeDesc = document.createElement('p');
+        safeDesc.textContent = r.description;
+        var link = document.createElement('a');
+        link.href = r.url;
+        link.target = '_blank';
+        link.rel = 'noopener noreferrer';
+        link.textContent = 'View Source';
+        card.appendChild(safeTitle);
+        card.appendChild(safeDesc);
+        card.appendChild(link);
         box.appendChild(card);
       });
     }
 
     function drawChart(data) {
-      var ctx = document.getElementById("brandChart").getContext("2d");
+      var ctx = document.getElementById('brandChart').getContext('2d');
       if (brandChart) brandChart.destroy();
       brandChart = new Chart(ctx, {
-        type: "bar",
+        type: 'bar',
         data: {
-          labels: ["Sustainability", "Labor", "Environment"],
+          labels: ['Sustainability', 'Labor', 'Environment'],
           datasets: [{
-            label: data.brand + " Scores",
+            label: data.brand + ' Scores',
             data: [data.scores.sustainability_score, data.scores.labor_score, data.scores.environmental_score],
-            borderColor: "#111",
-            backgroundColor: "rgba(0,0,0,0.15)",
+            borderColor: '#111',
+            backgroundColor: 'rgba(0,0,0,0.15)',
             borderWidth: 2
           }]
         },
@@ -138,26 +310,61 @@
     }
 
     function logSearch(brand) {
-      // Fetch 2: POST to backend to log search in Supabase
-      fetch("/api/brands", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
+      fetch('/api/brands', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ brand_name: brand })
-      }).then(function() { loadRecentSearches(); });
+      })
+        .then(function(r) {
+          if (!r.ok) {
+            return r.json().then(function(body) {
+              throw new Error(body.error || 'Failed to log search');
+            });
+          }
+          return r.json();
+        })
+        .then(function() {
+          loadRecentSearches();
+        })
+        .catch(function(err) {
+          console.error('logSearch error:', err);
+          // Still try to reload the table even if logging failed
+          loadRecentSearches();
+        });
     }
 
     function loadRecentSearches() {
-      // Fetch 3: GET from backend to load recent searches from Supabase
-      fetch("/api/brands")
-        .then(function(r) { return r.json(); })
+      fetch('/api/brands')
+        .then(function(r) {
+          if (!r.ok) {
+            return r.json().then(function(body) {
+              throw new Error(body.error || 'Failed to load searches');
+            });
+          }
+          return r.json();
+        })
         .then(function(data) {
-          var tbody = document.getElementById("recentSearches");
-          tbody.innerHTML = "";
+          var tbody = document.getElementById('recentSearches');
+          tbody.innerHTML = '';
+          if (!data.length) {
+            tbody.innerHTML = '<tr><td colspan="2">No recent searches yet.</td></tr>';
+            return;
+          }
           data.forEach(function(row) {
-            var tr = document.createElement("tr");
-            tr.innerHTML = "<td>" + row.brand_name + "</td><td>" + new Date(row.created_at).toLocaleString() + "</td>";
+            var tr = document.createElement('tr');
+            var tdBrand = document.createElement('td');
+            tdBrand.textContent = row.brand_name;
+            var tdTime = document.createElement('td');
+            tdTime.textContent = new Date(row.created_at).toLocaleString();
+            tr.appendChild(tdBrand);
+            tr.appendChild(tdTime);
             tbody.appendChild(tr);
           });
+        })
+        .catch(function(err) {
+          console.error('loadRecentSearches error:', err);
+          var tbody = document.getElementById('recentSearches');
+          tbody.innerHTML = '<tr><td colspan="2">Could not load recent searches.</td></tr>';
         });
     }
 
