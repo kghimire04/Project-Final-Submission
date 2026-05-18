@@ -112,9 +112,8 @@
     }
 
     .button-85:disabled {
-      opacity: 0.5;
+      opacity: 0.6;
       cursor: not-allowed;
-      pointer-events: none;
     }
 
     .resultBox {
@@ -147,10 +146,6 @@
       color: #111;
     }
 
-    #statusMessage.error {
-      color: #c00;
-    }
-
     .smallNote {
       font-size: 16px;
       color: #444;
@@ -165,8 +160,7 @@
       border-collapse: collapse;
     }
 
-    th,
-    td {
+    th, td {
       border: 2px solid black;
       padding: 12px;
       text-align: center;
@@ -226,82 +220,50 @@
   <script>
     var brandChart;
 
-    function setStatus(msg, isError) {
-      var el = document.getElementById('statusMessage');
-      el.textContent = msg;
-      el.className = isError ? 'error' : '';
-    }
-
     function searchBrand() {
-      var brand = document.getElementById('brandInput').value.trim();
-      if (!brand) { alert('Please enter a brand name.'); return; }
+      var brand = document.getElementById("brandInput").value.trim();
+      if (!brand) { alert("Please enter a brand name."); return; }
 
-      var btn = document.getElementById('searchButton');
+      var btn = document.getElementById("searchButton");
       btn.disabled = true;
-      setStatus('Searching for ' + brand + '...');
+      document.getElementById("statusMessage").textContent = "Searching for " + brand + "...";
 
-      fetch('/api/brand-search?brand=' + encodeURIComponent(brand))
-        .then(function(r) {
-          if (!r.ok) {
-            return r.json().then(function(body) {
-              throw new Error(body.error || 'Server error ' + r.status);
-            });
-          }
-          return r.json();
-        })
+      // Fetch 1: external API call via backend (Zenserp)
+      fetch("/api/brand-search?brand=" + encodeURIComponent(brand))
+        .then(function(r) { return r.json(); })
         .then(function(data) {
-          setStatus('Showing results for ' + data.brand + '.');
+          btn.disabled = false;
+          document.getElementById("statusMessage").textContent = "Showing results for " + data.brand + ".";
           displayResults(data);
           drawChart(data);
           logSearch(brand);
-        })
-        .catch(function(err) {
-          setStatus('Search failed: ' + err.message, true);
-          console.error('searchBrand error:', err);
-        })
-        .finally(function() {
-          btn.disabled = false;
         });
     }
 
     function displayResults(data) {
-      var box = document.getElementById('searchResults');
-      box.innerHTML = '';
-      if (!data.results || data.results.length === 0) {
-        box.innerHTML = '<p>No results found.</p>';
-        return;
-      }
+      var box = document.getElementById("searchResults");
+      box.innerHTML = "";
+      if (!data.results || data.results.length === 0) { box.innerHTML = "<p>No results found.</p>"; return; }
       data.results.forEach(function(r) {
-        var card = document.createElement('div');
-        card.className = 'resultCard';
-        var safeTitle = document.createElement('h3');
-        safeTitle.textContent = r.title;
-        var safeDesc = document.createElement('p');
-        safeDesc.textContent = r.description;
-        var link = document.createElement('a');
-        link.href = r.url;
-        link.target = '_blank';
-        link.rel = 'noopener noreferrer';
-        link.textContent = 'View Source';
-        card.appendChild(safeTitle);
-        card.appendChild(safeDesc);
-        card.appendChild(link);
+        var card = document.createElement("div");
+        card.className = "resultCard";
+        card.innerHTML = "<h3>" + r.title + "</h3><p>" + r.description + "</p><a href='" + r.url + "' target='_blank'>View Source</a>";
         box.appendChild(card);
       });
     }
 
     function drawChart(data) {
-      var ctx = document.getElementById('brandChart').getContext('2d');
+      var ctx = document.getElementById("brandChart").getContext("2d");
       if (brandChart) brandChart.destroy();
       brandChart = new Chart(ctx, {
-        type: 'bar',
+        type: "bar",
         data: {
-          labels: ['Sustainability', 'Labor', 'Environment'],
+          labels: ["Sustainability", "Labor", "Environment"],
           datasets: [{
-            label: data.brand + ' Scores',
+            label: data.brand + " Scores",
             data: [data.scores.sustainability_score, data.scores.labor_score, data.scores.environmental_score],
-            borderColor: '#111',
-            backgroundColor: 'rgba(0,0,0,0.15)',
+            borderColor: "#111",
+            backgroundColor: "rgba(0,0,0,0.15)",
             borderWidth: 2
           }]
         },
@@ -310,61 +272,26 @@
     }
 
     function logSearch(brand) {
-      fetch('/api/brands', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+      // Fetch 2: POST to backend to log search in Supabase
+      fetch("/api/brands", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ brand_name: brand })
-      })
-        .then(function(r) {
-          if (!r.ok) {
-            return r.json().then(function(body) {
-              throw new Error(body.error || 'Failed to log search');
-            });
-          }
-          return r.json();
-        })
-        .then(function() {
-          loadRecentSearches();
-        })
-        .catch(function(err) {
-          console.error('logSearch error:', err);
-          // Still try to reload the table even if logging failed
-          loadRecentSearches();
-        });
+      }).then(function() { loadRecentSearches(); });
     }
 
     function loadRecentSearches() {
-      fetch('/api/brands')
-        .then(function(r) {
-          if (!r.ok) {
-            return r.json().then(function(body) {
-              throw new Error(body.error || 'Failed to load searches');
-            });
-          }
-          return r.json();
-        })
+      // Fetch 3: GET from backend to load recent searches from Supabase
+      fetch("/api/brands")
+        .then(function(r) { return r.json(); })
         .then(function(data) {
-          var tbody = document.getElementById('recentSearches');
-          tbody.innerHTML = '';
-          if (!data.length) {
-            tbody.innerHTML = '<tr><td colspan="2">No recent searches yet.</td></tr>';
-            return;
-          }
+          var tbody = document.getElementById("recentSearches");
+          tbody.innerHTML = "";
           data.forEach(function(row) {
-            var tr = document.createElement('tr');
-            var tdBrand = document.createElement('td');
-            tdBrand.textContent = row.brand_name;
-            var tdTime = document.createElement('td');
-            tdTime.textContent = new Date(row.created_at).toLocaleString();
-            tr.appendChild(tdBrand);
-            tr.appendChild(tdTime);
+            var tr = document.createElement("tr");
+            tr.innerHTML = "<td>" + row.brand_name + "</td><td>" + new Date(row.created_at).toLocaleString() + "</td>";
             tbody.appendChild(tr);
           });
-        })
-        .catch(function(err) {
-          console.error('loadRecentSearches error:', err);
-          var tbody = document.getElementById('recentSearches');
-          tbody.innerHTML = '<tr><td colspan="2">Could not load recent searches.</td></tr>';
         });
     }
 
