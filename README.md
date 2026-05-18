@@ -30,6 +30,7 @@ Then open `http://localhost:3000` in your browser.
 ### Known Bugs
 - Scores are estimated from keyword matching only, not verified data
 - Save data crashes server
+- API is not currently letting you search
 
 ### Future Development
 - Real score calculation using certification databases
