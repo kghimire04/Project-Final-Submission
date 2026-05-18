@@ -1,0 +1,272 @@
+<html>
+<head>
+  <title>Ethical Threads | About</title>
+
+
+  <style>
+    body {
+      font-family: 'Times New Roman', Times, serif;
+      margin: 0;
+      padding: 0;
+      background-color: white;
+      text-align: center;
+    }
+
+    nav {
+      background-color: #111;
+      padding: 0;
+    }
+
+    nav ul {
+      list-style-type: none;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      justify-content: center;
+    }
+
+    nav li {
+      padding: 18px 35px;
+      cursor: pointer;
+    }
+
+    nav li:hover {
+      background-color: #555;
+    }
+
+    nav a {
+      color: white;
+      text-decoration: none;
+      font-size: 18px;
+      display: block;
+    }
+
+    .container {
+      width: 85%;
+      margin: 40px auto;
+      border: 3px solid black;
+      padding: 30px;
+      background-color: white;
+    }
+
+    input, textarea {
+      padding: 10px;
+      font-size: 16px;
+      margin: 10px;
+      font-family: 'Times New Roman', Times, serif;
+    }
+
+    #introBox {
+      width: 75%;
+      margin: 30px auto;
+      padding: 25px;
+      border: 2px solid black;
+      border-radius: 10px;
+      background-color: #f5f5f5;
+    }
+
+    #introBox p {
+      font-size: 20px;
+      line-height: 1.5;
+    }
+
+    .button-85 {
+      display: inline-block;
+      padding: 0.6em 2em;
+      border: none;
+      outline: none;
+      color: white;
+      background: #111;
+      cursor: pointer;
+      position: relative;
+      z-index: 0;
+      border-radius: 10px;
+      user-select: none;
+      -webkit-user-select: none;
+      touch-action: manipulation;
+      margin: 15px;
+      font-size: 18px;
+      text-decoration: none;
+      isolation: isolate;
+    }
+
+    .button-85:before {
+      content: "";
+      background: linear-gradient(
+        45deg,
+        #ff0000, #ff7300, #fffb00, #48ff00,
+        #00ffd5, #002bff, #7a00ff, #ff00c8, #ff0000
+      );
+      position: absolute;
+      top: -2px;
+      left: -2px;
+      background-size: 400%;
+      z-index: -2;
+      filter: blur(5px);
+      width: calc(100% + 4px);
+      height: calc(100% + 4px);
+      animation: glowing-button-85 20s linear infinite;
+      border-radius: 10px;
+    }
+
+    @keyframes glowing-button-85 {
+      0%   { background-position: 0 0; }
+      50%  { background-position: 400% 0; }
+      100% { background-position: 0 0; }
+    }
+
+    .button-85:after {
+      z-index: -1;
+      content: "";
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      background: #222;
+      left: 0;
+      top: 0;
+      border-radius: 10px;
+    }
+
+    canvas {
+      margin-top: 30px;
+    }
+
+    table {
+      width: 90%;
+      margin: 30px auto;
+      border-collapse: collapse;
+    }
+
+    th, td {
+      border: 2px solid black;
+      padding: 12px;
+      text-align: center;
+    }
+
+    th {
+      background-color: #222;
+      color: white;
+    }
+
+    td a {
+      color: blue;
+      font-weight: bold;
+    }
+
+    .swiper {
+      width: 80%;
+      height: 350px;
+      margin: 30px auto;
+      border: 3px solid black;
+      background-color: #f5f5f5;
+    }
+
+    .swiper-slide {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      font-size: 22px;
+      padding: 25px;
+      box-sizing: border-box;
+    }
+
+    .resultBox {
+      width: 85%;
+      margin: 30px auto;
+      border: 3px solid black;
+      padding: 20px;
+      background-color: #f5f5f5;
+      text-align: left;
+    }
+
+    .resultBox h2 {
+      text-align: center;
+    }
+
+    .resultCard {
+      border: 2px solid black;
+      padding: 15px;
+      margin: 15px;
+      background-color: white;
+    }
+
+    .resultCard a {
+      color: blue;
+      font-weight: bold;
+    }
+
+    #statusMessage {
+      font-weight: bold;
+      color: #111;
+    }
+
+    .smallNote {
+      font-size: 16px;
+      color: #444;
+      width: 75%;
+      margin: 15px auto;
+      line-height: 1.5;
+    }
+  </style>
+
+</head>
+
+<body>
+
+  <nav>
+    <ul>
+      <li><a href="index.html">Home</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="search.html">Brand Search</a></li>
+    </ul>
+  </nav>
+
+
+  <div class="container">
+    <h1>About Ethical Threads</h1>
+
+    <div id="introBox">
+      <p>
+        Many fashion companies market their products as sustainable, but consumers often have
+        to search across many websites, reports, articles, and brand pages to understand whether
+        a company is actually transparent. This app gives users a single starting point for brand research.
+      </p>
+    </div>
+
+    <h2>Project Purpose</h2>
+    <p class="smallNote">
+      The purpose of Ethical Threads is to make fashion sustainability information easier to find.
+      Users can search for a brand and view public results about sustainability reports, labor practices,
+      carbon emissions, and ethical sourcing.
+    </p>
+
+    <h2>Target Users</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>User Group</th>
+          <th>How This Website Helps</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Consumers</td>
+          <td>Helps shoppers quickly research brand sustainability before buying.</td>
+        </tr>
+        <tr>
+          <td>Students</td>
+          <td>Supports research about fashion, ethics, labor, and environmental impact.</td>
+        </tr>
+        <tr>
+          <td>Advocacy Groups</td>
+          <td>Organizes public brand information in a visual and accessible format.</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <a class="button-85" href="search.html">Start Searching</a>
+  </div>
+
+</body>
+</html>
